@@ -5,11 +5,12 @@ import android.os.Bundle;
 
 import br.com.osbdesenvolvimento.bikesorocaba.R;
 
-public class PauloActivity extends AppCompatActivity {
+public class PauloActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paulo);
     }
+
 }
