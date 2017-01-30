@@ -1,7 +1,9 @@
-package br.com.osbdesenvolvimento.bikesorocaba;
+package br.com.osbdesenvolvimento.bikesorocaba.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import br.com.osbdesenvolvimento.bikesorocaba.R;
 
 public class MatheusActivity extends AppCompatActivity {
 
