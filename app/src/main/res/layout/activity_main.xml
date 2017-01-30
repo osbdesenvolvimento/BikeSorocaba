@@ -10,14 +10,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.osbdesenvolvimento.bikesorocaba.MainActivity">
 
-    <TextView
+    <Button
+        android:text="Paulo Activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Olá PC!" />
+        android:id="@+id/btnPauloActivity"
+        android:layout_marginTop="143dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:elevation="0dp" />
 
-    <TextView
+    <Button
+        android:text="Matheus Activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Olá Matheus!" />
+        android:layout_marginTop="78dp"
+        android:id="@+id/btnMatheusActivity"
+        android:layout_below="@+id/btnPauloActivity"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

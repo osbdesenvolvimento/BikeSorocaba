@@ -11,5 +11,7 @@ public class MatheusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matheus);
+
+        // https://integrabike.compartibike.com.br/stations.json
     }
 }
