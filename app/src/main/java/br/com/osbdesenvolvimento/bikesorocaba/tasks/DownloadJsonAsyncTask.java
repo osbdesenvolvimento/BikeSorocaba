@@ -1,9 +1,7 @@
 package br.com.osbdesenvolvimento.bikesorocaba.tasks;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.GridView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,15 +12,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Bicicleta;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
 
 public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>> {
-
-    ProgressDialog dialog;
-    GridView gvEstacoes;
 
     @Override
     protected void onPreExecute() {
@@ -30,8 +24,8 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
     }
 
     @Override
-    protected void onPostExecute(List<Estacao> estacaos) {
-        super.onPostExecute(estacaos);
+    protected void onPostExecute(List<Estacao> estacoes) {
+        super.onPostExecute(estacoes);
     }
 
     @Override
@@ -47,8 +41,7 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
             BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String value = bf.readLine();
 
-            System.out.println("result is: " + value);
-
+            // Estações
             JSONArray estacoesJson = new JSONArray(value);
             for (int i = 0; i < estacoesJson.length(); i++) {
 
@@ -80,6 +73,7 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
                 JSONArray bicicletasJson = estacaoJson.getJSONArray("bikes");
                 List<Bicicleta> bicicletas = new ArrayList<>();
                 for (int x = 0; x < bicicletasJson.length(); x++) {
+
                     // Bicicleta
                     JSONObject bicicletaJson = (JSONObject) bicicletasJson.get(x);
                     Bicicleta bicicleta = new Bicicleta();
@@ -100,7 +94,10 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
                     bicicletas.add(bicicleta);
                 }
 
+                // Adicionando as bicicletas da estação
                 estacao.setBikes(bicicletas);
+
+                // Adicionando as estações localizadas
                 estacoes.add(estacao);
 
                 Log.d("[Teste]", estacao.toString());
