@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import br.com.osbdesenvolvimento.bikesorocaba.R;
+import br.com.osbdesenvolvimento.bikesorocaba.tasks.DownloadJsonAsyncTask;
 
 public class MatheusActivity extends AppCompatActivity {
 
@@ -12,6 +13,6 @@ public class MatheusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matheus);
 
-        // https://integrabike.compartibike.com.br/stations.json
+        new DownloadJsonAsyncTask().execute("https://integrabike.compartibike.com.br/stations.json");
     }
 }
