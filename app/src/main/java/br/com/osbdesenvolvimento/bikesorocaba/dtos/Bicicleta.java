@@ -20,18 +20,6 @@ public class Bicicleta {
     private String updatedAt;
 
     public Bicicleta() {
-        acquisitionDate = "2016-09-02";
-        bikeHardId = "0165";
-        createdAt = "2016-09-02T14:49:04-03:00";
-        deletedAt = null;
-        id = "267";
-        lastReceived = "2017-01-29T19:57:49-02:00";
-        lastStationId = "23";
-        model = "";
-        rfid = "43005F5730";
-        stationId = "23";
-        status = "available";
-        updatedAt = "2017-01-29T19:57:49-02:00";
     }
 
     public String getAcquisitionDate() {
