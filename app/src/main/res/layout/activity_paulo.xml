@@ -4,14 +4,12 @@
     tools:context="br.com.osbdesenvolvimento.bikesorocaba.activities.PauloActivity"
     android:id="@+id/activity_paulo"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp">
+    android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/map"
-        android:name="br.com.osbdesenvolvimento.bikesorocaba.fragments.MapFragment"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="br.com.osbdesenvolvimento.bikesorocaba.activities.PauloActivity" />
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 
 </RelativeLayout>
