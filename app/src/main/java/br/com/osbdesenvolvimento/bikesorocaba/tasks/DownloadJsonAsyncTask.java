@@ -51,11 +51,11 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
                 estacao.setAddress(estacaoJson.getString("address"));
                 estacao.setCreatedAt(estacaoJson.getString("created_at"));
                 estacao.setDescription(estacaoJson.getString("description"));
-                estacao.setGoogleMapX(estacaoJson.getString("googleMapX"));
-                estacao.setGoogleMapY(estacaoJson.getString("googleMapY"));
+                estacao.setGoogleMapX(estacaoJson.getDouble("googleMapX"));
+                estacao.setGoogleMapY(estacaoJson.getDouble("googleMapY"));
                 estacao.setId(estacaoJson.getString("id"));
-                estacao.setMapX(estacaoJson.getString("mapX"));
-                estacao.setMapY(estacaoJson.getString("mapY"));
+                estacao.setMapX(estacaoJson.getDouble("mapX"));
+                estacao.setMapY(estacaoJson.getDouble("mapY"));
                 estacao.setName(estacaoJson.getString("name"));
                 estacao.setNumberLeftSlots(estacaoJson.getString("number_left_slots"));
                 estacao.setNumberRightSlots(estacaoJson.getString("number_right_slots"));

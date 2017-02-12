@@ -7,11 +7,11 @@ public class Estacao {
     private String address;
     private String createdAt;
     private String description;
-    private String googleMapX;
-    private String googleMapY;
+    private Double googleMapX;
+    private Double googleMapY;
     private String id;
-    private String mapX;
-    private String mapY;
+    private Double mapX;
+    private Double mapY;
     private String name;
     private String numberLeftSlots;
     private String numberRightSlots;
@@ -53,19 +53,19 @@ public class Estacao {
         this.description = description;
     }
 
-    public String getGoogleMapX() {
+    public Double getGoogleMapX() {
         return googleMapX;
     }
 
-    public void setGoogleMapX(String googleMapX) {
+    public void setGoogleMapX(Double googleMapX) {
         this.googleMapX = googleMapX;
     }
 
-    public String getGoogleMapY() {
+    public Double getGoogleMapY() {
         return googleMapY;
     }
 
-    public void setGoogleMapY(String googleMapY) {
+    public void setGoogleMapY(Double googleMapY) {
         this.googleMapY = googleMapY;
     }
 
@@ -77,19 +77,19 @@ public class Estacao {
         this.id = id;
     }
 
-    public String getMapX() {
+    public Double getMapX() {
         return mapX;
     }
 
-    public void setMapX(String mapX) {
+    public void setMapX(Double mapX) {
         this.mapX = mapX;
     }
 
-    public String getMapY() {
+    public Double getMapY() {
         return mapY;
     }
 
-    public void setMapY(String mapY) {
+    public void setMapY(Double mapY) {
         this.mapY = mapY;
     }
 
