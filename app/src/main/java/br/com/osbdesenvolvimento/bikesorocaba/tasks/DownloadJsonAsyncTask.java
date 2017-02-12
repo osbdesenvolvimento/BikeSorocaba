@@ -3,6 +3,11 @@ package br.com.osbdesenvolvimento.bikesorocaba.tasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,10 +18,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.osbdesenvolvimento.bikesorocaba.R;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Bicicleta;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
+import br.com.osbdesenvolvimento.bikesorocaba.fragments.MapFragment;
 
 public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>> {
+
+    MapFragment contextFrag;
+
+
+    public DownloadJsonAsyncTask(MapFragment contextFrag){
+        this.contextFrag=contextFrag;
+    }
 
     @Override
     protected void onPreExecute() {
@@ -24,14 +38,10 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
     }
 
     @Override
-    protected void onPostExecute(List<Estacao> estacoes) {
-        super.onPostExecute(estacoes);
-    }
-
-    @Override
     protected List<Estacao> doInBackground(String... params) {
 
         List<Estacao> estacoes = new ArrayList<>();
+
         try {
             URL url = new URL(params[0]);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -54,8 +64,8 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
                 estacao.setGoogleMapX(estacaoJson.getDouble("googleMapX"));
                 estacao.setGoogleMapY(estacaoJson.getDouble("googleMapY"));
                 estacao.setId(estacaoJson.getString("id"));
-                estacao.setMapX(estacaoJson.getDouble("mapX"));
-                estacao.setMapY(estacaoJson.getDouble("mapY"));
+                estacao.setMapX(estacaoJson.getString("mapX"));
+                estacao.setMapY(estacaoJson.getString("mapY"));
                 estacao.setName(estacaoJson.getString("name"));
                 estacao.setNumberLeftSlots(estacaoJson.getString("number_left_slots"));
                 estacao.setNumberRightSlots(estacaoJson.getString("number_right_slots"));
@@ -99,8 +109,6 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
 
                 // Adicionando as estações localizadas
                 estacoes.add(estacao);
-
-                Log.d("[Teste]", estacao.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,4 +116,23 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
 
         return estacoes;
     }
+
+    @Override
+    protected void onPostExecute(List<Estacao> estacoes) {
+        contextFrag.atualizaFragment(estacoes);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
