@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -13,13 +14,11 @@ import java.util.ArrayList;
 import br.com.osbdesenvolvimento.bikesorocaba.R;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
 
-import static br.com.osbdesenvolvimento.bikesorocaba.R.id.tvBikesDisponiveis;
-import static br.com.osbdesenvolvimento.bikesorocaba.R.layout.estacao;
-
 public class EstacaoAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Estacao> lista;
+    private static String STATUS_ATIVA = "Ativa";
 
     public EstacaoAdapter(Context context, ArrayList<Estacao> list) {
         this.context = context;
@@ -48,12 +47,19 @@ public class EstacaoAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.estacao, null);
 
+        LinearLayout llEstacao = (LinearLayout) layout.findViewById(R.id.llEstacao);
+        if (position % 2 == 1) {
+            llEstacao.setBackgroundColor(Color.parseColor("#ffffff"));
+        } else {
+            llEstacao.setBackgroundColor(Color.parseColor("#e5e5e5"));
+        }
+
         TextView tvName = (TextView) layout.findViewById(R.id.tvNome);
         tvName.setText(estacao.getStationNumber() + " - " + estacao.getName());
-        if ("Ativa".compareToIgnoreCase(estacao.getStatus()) == 0) {
-            tvName.setTextColor(Color.GREEN);
+        if (STATUS_ATIVA.compareToIgnoreCase(estacao.getStatus()) == 0) {
+            tvName.setTextColor(Color.parseColor("#75b76f"));
         } else {
-            tvName.setTextColor(Color.RED);
+            tvName.setTextColor(Color.parseColor("#b76f6f"));
         }
 
         TextView tvBikesDisponiveis = (TextView) layout.findViewById(R.id.tvBikesDisponiveis);

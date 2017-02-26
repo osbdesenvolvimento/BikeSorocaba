@@ -5,40 +5,43 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/llEstacao"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="5dp">
 
         <TextView
             android:id="@+id/tvNome"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="6"
+            android:layout_height="72dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
             android:text="Id - Nome da Estação"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvBikesDisponiveis"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
                 android:text="@string/bikes_disponiveis" />
 
             <TextView
                 android:id="@+id/tvBaiasDisponiveis"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
                 android:text="@string/baias_disponiveis" />
         </LinearLayout>
 
