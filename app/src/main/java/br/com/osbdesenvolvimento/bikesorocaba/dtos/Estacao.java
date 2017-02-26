@@ -1,5 +1,6 @@
 package br.com.osbdesenvolvimento.bikesorocaba.dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Estacao {
@@ -10,8 +11,8 @@ public class Estacao {
     private Double googleMapX;
     private Double googleMapY;
     private String id;
-    private Double mapX;
-    private Double mapY;
+    private String mapX;
+    private String mapY;
     private String name;
     private String numberLeftSlots;
     private String numberRightSlots;
@@ -27,6 +28,7 @@ public class Estacao {
     private List<Bicicleta> bikes;
 
     public Estacao() {
+        this.bikes = new ArrayList<>();
     }
 
     public String getAddress() {
@@ -77,19 +79,19 @@ public class Estacao {
         this.id = id;
     }
 
-    public Double getMapX() {
+    public String getMapX() {
         return mapX;
     }
 
-    public void setMapX(Double mapX) {
+    public void setMapX(String mapX) {
         this.mapX = mapX;
     }
 
-    public Double getMapY() {
+    public String getMapY() {
         return mapY;
     }
 
-    public void setMapY(Double mapY) {
+    public void setMapY(String mapY) {
         this.mapY = mapY;
     }
 

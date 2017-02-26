@@ -1,12 +1,8 @@
 package br.com.osbdesenvolvimento.bikesorocaba.tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import android.view.View;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,17 +15,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.osbdesenvolvimento.bikesorocaba.R;
+import br.com.osbdesenvolvimento.bikesorocaba.adapters.EstacaoAdapter;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Bicicleta;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
 import br.com.osbdesenvolvimento.bikesorocaba.fragments.MapFragment;
 
-public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>> {
+public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Estacao>> {
 
-    MapFragment contextFrag;
+    MapFragment mapFragment;
+    View view;
 
+    public DownloadJsonAsyncTask(MapFragment contextFrag) {
+        this.mapFragment = contextFrag;
+    }
 
-    public DownloadJsonAsyncTask(MapFragment contextFrag){
-        this.contextFrag=contextFrag;
+    public DownloadJsonAsyncTask(View view) {
+        this.view = view;
     }
 
     @Override
@@ -38,9 +39,9 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
     }
 
     @Override
-    protected List<Estacao> doInBackground(String... params) {
+    protected ArrayList<Estacao> doInBackground(String... params) {
 
-        List<Estacao> estacoes = new ArrayList<>();
+        ArrayList<Estacao> estacoes = new ArrayList<>();
 
         try {
             URL url = new URL(params[0]);
@@ -118,8 +119,14 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, List<Estacao>
     }
 
     @Override
-    protected void onPostExecute(List<Estacao> estacoes) {
-        contextFrag.atualizaFragment(estacoes);
+    protected void onPostExecute(ArrayList<Estacao> estacoes) {
+        if (mapFragment != null) {
+            mapFragment.atualizaFragment(estacoes);
+        } else if (view != null) {
+            ListView lvEstacoes = (ListView) view;
+            EstacaoAdapter adapter = new EstacaoAdapter(view.getContext(), estacoes);
+            lvEstacoes.setAdapter(adapter);
+        }
     }
 }
 

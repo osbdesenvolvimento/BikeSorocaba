@@ -3,4 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- BikeSorocaba -->
+    <string name="bikes_disponiveis">Bicicletas Disponíveis: %1$s</string>
+    <string name="baias_disponiveis">Baias Disponíveis: %1$s</string>
+
 </resources>
