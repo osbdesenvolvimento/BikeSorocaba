@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -27,7 +28,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -42,9 +47,12 @@ public class MapFragment extends Fragment  {
     private GoogleMap googleMap;
     String lat, lon;
     MapFragment contextFragmente;
+    LayoutInflater thisInflater;
+    List<Estacao> listaEstacoes;
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         contextFragmente = this;
 
@@ -71,6 +79,57 @@ public class MapFragment extends Fragment  {
                 }else{
                     Log.e("MAPTESTE","ELSESAPORRA 3");
                 }
+
+                // Setting a custom info window adapter for the google map
+                googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+                    // Use default InfoWindow frame
+                    @Override
+                    public View getInfoWindow(Marker arg0) {
+                        return null;
+                    }
+
+                    // Defines the contents of the InfoWindow
+                    @Override
+                    public View getInfoContents(Marker marker) {
+                        JSONObject markerJson = null;
+
+                        // Getting view from the layout file info_window_layout
+                        View v = inflater.inflate(R.layout.info_mark_estacao, null);
+
+
+                        Log.e("teste", marker.getSnippet());
+
+                        try {
+                            markerJson =  new JSONObject(marker.getSnippet());
+
+                            Log.e("teste",markerJson.getString("address"));
+
+                            TextView tvNome = (TextView) v.findViewById(R.id.tvNome);
+                            TextView tvBikesDisponiveis = (TextView) v.findViewById(R.id.tvBikesDisponiveis);
+                            TextView tvBaiasDisponiveis = (TextView) v.findViewById(R.id.tvBaiasDisponiveis);
+
+                            tvNome.setText(markerJson.getString("stationNumber")+" - "+marker.getTitle());
+                            tvBikesDisponiveis.setText(contextFragmente.getString(R.string.bikes_disponiveis, markerJson.getString("qtdBikes")));
+                            tvBaiasDisponiveis.setText(contextFragmente.getString(R.string.baias_disponiveis, markerJson.getString("qtdBaias")));
+
+                        } catch (JSONException e) {
+                            Log.e("teste", String.valueOf(e));
+                            e.printStackTrace();
+                        }
+
+
+
+
+
+                        // Returning the view containing InfoWindow contents
+                        return v;
+
+                    }
+                });
+
+
+
                 //googleMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
 
@@ -92,11 +151,13 @@ public class MapFragment extends Fragment  {
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
-                for (Estacao estacao: lista) {
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(estacao.getGoogleMapX(),estacao.getGoogleMapY())).title(estacao.getName()).snippet("Marker Description").icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marker_bike)));
+                for (final Estacao estacao: lista) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(estacao.getGoogleMapX(), estacao.getGoogleMapY()))
+                            .title(estacao.getName())
+                            .snippet(estacao.toJsonString())
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marker_bike)));
                 }
-
-
             }
         });
     }
