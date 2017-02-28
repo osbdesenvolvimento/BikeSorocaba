@@ -199,6 +199,7 @@ public class Estacao {
         this.bikes = bikes;
     }
 
+
     @Override
     public String toString() {
         return "Estacao{" +
@@ -223,6 +224,26 @@ public class Estacao {
                 ", unavailableSlotsSize='" + unavailableSlotsSize + '\'' +
                 ", statusToHuman='" + statusToHuman + '\'' +
                 ", bikes=" + bikes +
+                '}';
+    }
+
+    public String toJsonString() {
+        return "{" +
+                "status:'" + status + '\'' +
+                ", address:'" + address + '\'' +
+                ", createdAt:'" + createdAt + '\'' +
+                ", description:'" + description + '\'' +
+                ", id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", numberLeftSlots:'" + numberLeftSlots + '\'' +
+                ", numberRightSlots:'" + numberRightSlots + '\'' +
+                ", stationNumber:'" + stationNumber + '\'' +
+                ", totalBikes:'" + totalBikes + '\'' +
+                ", typeStation:'" + typeStation + '\'' +
+                ", updatedAt:'" + updatedAt + '\'' +
+                ", availableSlotsSize:'" + availableSlotsSize + '\'' +
+                ", unavailableSlotsSize:'" + unavailableSlotsSize + '\'' +
+                ", statusToHuman:'" + statusToHuman + '\'' +
                 '}';
     }
 }
