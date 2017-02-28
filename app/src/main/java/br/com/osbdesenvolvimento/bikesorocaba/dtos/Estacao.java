@@ -228,6 +228,9 @@ public class Estacao {
     }
 
     public String toJsonString() {
+        String qtdBikes = bikes == null ? "0" : String.valueOf(bikes.size());
+        String qtdBaias = availableSlotsSize == null ? "0" : availableSlotsSize;
+
         return "{" +
                 "status:'" + status + '\'' +
                 ", address:'" + address + '\'' +
@@ -244,6 +247,8 @@ public class Estacao {
                 ", availableSlotsSize:'" + availableSlotsSize + '\'' +
                 ", unavailableSlotsSize:'" + unavailableSlotsSize + '\'' +
                 ", statusToHuman:'" + statusToHuman + '\'' +
+                ", qtdBikes:'" + qtdBikes + '\'' +
+                ", qtdBaias:'" + qtdBaias + '\'' +
                 '}';
     }
 }
