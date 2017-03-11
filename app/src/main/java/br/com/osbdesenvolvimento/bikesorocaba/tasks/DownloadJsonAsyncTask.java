@@ -16,6 +16,7 @@ import java.util.List;
 
 import br.com.osbdesenvolvimento.bikesorocaba.R;
 import br.com.osbdesenvolvimento.bikesorocaba.adapters.EstacaoAdapter;
+import br.com.osbdesenvolvimento.bikesorocaba.classes.Interfaces;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Bicicleta;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
 import br.com.osbdesenvolvimento.bikesorocaba.fragments.MapFragment;
@@ -24,9 +25,11 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Est
 
     MapFragment mapFragment;
     View view;
+    Interfaces.AsyncReturnListEstacoes interCall = null;
 
-    public DownloadJsonAsyncTask(MapFragment contextFrag) {
+    public DownloadJsonAsyncTask(MapFragment contextFrag, Interfaces.AsyncReturnListEstacoes interCall) {
         this.mapFragment = contextFrag;
+        this.interCall = interCall;
     }
 
     public DownloadJsonAsyncTask(View view) {
@@ -120,8 +123,8 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Est
 
     @Override
     protected void onPostExecute(ArrayList<Estacao> estacoes) {
-        if (mapFragment != null) {
-            mapFragment.atualizaFragment(estacoes);
+        if (interCall != null) {
+            interCall.processFinish(estacoes);
         } else if (view != null) {
             ListView lvEstacoes = (ListView) view;
             EstacaoAdapter adapter = new EstacaoAdapter(view.getContext(), estacoes);
