@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -44,6 +45,7 @@ import br.com.osbdesenvolvimento.bikesorocaba.tasks.DownloadJsonAsyncTask;
 
 public class MapFragment extends Fragment implements Interfaces.AsyncReturnListEstacoes {
     MapView mMapView;
+    RelativeLayout rlLoading;
     private GoogleMap googleMap;
     String lat, lon;
     MapFragment contextFragmente;
@@ -56,7 +58,10 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
         contextFragmente = this;
 
         mMapView = (MapView) view.findViewById(R.id.mapView);
+        rlLoading = (RelativeLayout) view.findViewById(R.id.rlLoading);
+
         mMapView.onCreate(savedInstanceState);
+        //mMapView.onCreate(savedInstanceState);
         mMapView.onResume(); // needed to get the map to display immediately
 
         try {
@@ -132,7 +137,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
 
 
                 // For dropping a marker at a point on the Map
-                LatLng sorocaba = new LatLng(-23.4673332,-47.5176655);
+                LatLng sorocaba = new LatLng(-23.4826108,-47.4618482);
                 new DownloadJsonAsyncTask(contextFragmente, contextFragmente).execute("https://integrabike.compartibike.com.br/stations.json");
 
                 // For zooming automatically to the location of the marker
@@ -157,6 +162,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
                             .snippet(estacao.toJsonString())
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marker_bike)));
                 }
+                rlLoading.setVisibility(View.GONE);
             }
         });
 
