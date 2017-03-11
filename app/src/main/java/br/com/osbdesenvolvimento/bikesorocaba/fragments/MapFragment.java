@@ -37,28 +37,25 @@ import org.json.JSONObject;
 import java.util.List;
 
 import br.com.osbdesenvolvimento.bikesorocaba.R;
+import br.com.osbdesenvolvimento.bikesorocaba.classes.Interfaces;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
 import br.com.osbdesenvolvimento.bikesorocaba.tasks.DownloadJsonAsyncTask;
 
 
-public class MapFragment extends Fragment  {
-
+public class MapFragment extends Fragment implements Interfaces.AsyncReturnListEstacoes {
     MapView mMapView;
     private GoogleMap googleMap;
-    String lat, lon;
     MapFragment contextFragmente;
-    LayoutInflater thisInflater;
-    List<Estacao> listaEstacoes;
-
+    ViewGroup myContainer;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         contextFragmente = this;
+        myContainer = container;
 
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-
         mMapView.onResume(); // needed to get the map to display immediately
 
         try {
@@ -95,7 +92,7 @@ public class MapFragment extends Fragment  {
                         JSONObject markerJson = null;
 
                         // Getting view from the layout file info_window_layout
-                        View v = inflater.inflate(R.layout.info_mark_estacao, null);
+                        View v = inflater.inflate(R.layout.info_mark_estacao, myContainer);
 
 
                         Log.e("teste", marker.getSnippet());
@@ -135,7 +132,7 @@ public class MapFragment extends Fragment  {
 
                 // For dropping a marker at a point on the Map
                 LatLng sorocaba = new LatLng(-23.4673332,-47.5176655);
-                new DownloadJsonAsyncTask(contextFragmente).execute("https://integrabike.compartibike.com.br/stations.json");
+                new DownloadJsonAsyncTask(contextFragmente, contextFragmente).execute("https://integrabike.compartibike.com.br/stations.json");
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sorocaba).zoom(12).build();
@@ -145,7 +142,8 @@ public class MapFragment extends Fragment  {
         return view;
     }
 
-    public void atualizaFragment(final List<Estacao> lista){
+    @Override
+    public void processFinish(final List<Estacao> lista) {
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
@@ -160,8 +158,8 @@ public class MapFragment extends Fragment  {
                 }
             }
         });
-    }
 
+    }
 
 
     @Override
@@ -187,5 +185,6 @@ public class MapFragment extends Fragment  {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
 
 }
