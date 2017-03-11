@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp">
+    android:background="@android:color/transparent">
 
     <RelativeLayout
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
-    android:padding="5dp">
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tvNome"
@@ -24,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_below="@+id/tvNome"
-            android:layout_margin="3dp"
+            android:layout_marginTop="15dp"
             android:text="@string/bikes_disponiveis" />
 
         <TextView
