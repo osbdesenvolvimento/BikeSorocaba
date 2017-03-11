@@ -45,14 +45,15 @@ import br.com.osbdesenvolvimento.bikesorocaba.tasks.DownloadJsonAsyncTask;
 public class MapFragment extends Fragment implements Interfaces.AsyncReturnListEstacoes {
     MapView mMapView;
     private GoogleMap googleMap;
+    String lat, lon;
     MapFragment contextFragmente;
-    ViewGroup myContainer;
+    List<Estacao> listaEstacoes;
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         contextFragmente = this;
-        myContainer = container;
 
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -92,7 +93,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
                         JSONObject markerJson = null;
 
                         // Getting view from the layout file info_window_layout
-                        View v = inflater.inflate(R.layout.info_mark_estacao, myContainer);
+                        View v = inflater.inflate(R.layout.info_mark_estacao, null);
 
 
                         Log.e("teste", marker.getSnippet());
