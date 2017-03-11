@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@color/yellow_A400">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_map_marker_radius"
+                    android:layout_centerVertical="true" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_marginLeft="7dp"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:textColor="@android:color/black"
+                    android:text="Mapa"/>
+        </RelativeLayout>
+</RelativeLayout>
