@@ -8,4 +8,26 @@
     <string name="bikes_disponiveis">Bicicletas Disponíveis: %1$s</string>
     <string name="baias_disponiveis">Baias Disponíveis: %1$s</string>
 
+
+    <string name="txt_regras_gerais_titulo">REGRAS GERAIS</string>
+    <string name="txt_regras_gerais">
+        O horário de funcionamento é das 6h00 às 22h00; \n\n
+
+        Para cadastramento no Integrabike é obrigatório possuir um dos Cartões de Transporte Coletivo Municipal, CPF válido ser maior de 18 anos; \n\n
+
+        <b>A utilização por até 1 hora nos dias de semana e 2 horas nos finais de semana e feriado não gera custo adicional. Apenas haverá cobrança caso o período de utilização da bicicleta ultrapasse 1 hora contínua nos dias da semana e 2 horas nos finais de semana e feriados.</b> \n\n
+
+        Valores de uso por hora adicional: Acima de 1 hora, R$ 5,00; Acima de 2 horas, R$ 10,00; Acima de 3 horas, R$ 30,00; \n\n
+
+        Para cadastros realizados no site, as cobranças das horas adicionais, caso ocorram, serão feitas automaticamente no cartão de crédito cadastrado; \n\n
+
+        Para cadastros realizados nas Casas dos Cidadãos e Terminais de Atendimento da Urbes, o pagamento das horas adicionais deve ser feito pelo próprio usuário acessando o site Integrabike com login e senha. Somente após o pagamento, será possível realizar novo empréstimo; \n\n
+
+        Ao fazer um intervalo de 15 minutos entre um empréstimo e outro, um novo período se inicia e 1 hora nos dias de semana e as 2 horas nos finais de semana e feriados começam a contar novamente; \n\n
+
+        Cada cadastro possibilita o empréstimo de 1 (uma) bicicleta; \n\n
+
+        As bicicletas podem ser retiradas e devolvidas em qualquer estação; \n\n
+    </string>
+
 </resources>
