@@ -8,6 +8,8 @@
     <string name="bikes_disponiveis">Bicicletas Disponíveis: %1$s</string>
     <string name="baias_disponiveis">Baias Disponíveis: %1$s</string>
     <string name="txt_regras_gerais_titulo">REGRAS GERAIS</string>
+    <string name="txt_op_1">Atualizar automaticamente</string>
+    <string name="txt_op_2">Exibir botão de Atualizar</string>
     <string name="txt_regras_gerais">
         O horário de funcionamento é das 6h00 às 22h00; \n\n
 

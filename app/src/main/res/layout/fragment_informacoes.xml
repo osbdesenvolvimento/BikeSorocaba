@@ -9,10 +9,52 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rlOpcoes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="10dp">
+            <Switch
+                android:id="@+id/switchAtualizarAutomaticamente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/switchAtualizarAutomaticamente"
+                android:layout_toRightOf="@+id/switchAtualizarAutomaticamente"
+                android:layout_alignBaseline="@+id/switchAtualizarAutomaticamente"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_op_1"/>
+
+            <Switch
+                android:id="@+id/switchBotaoAtualizar"
+                android:layout_below="@+id/switchAtualizarAutomaticamente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/switchAtualizarAutomaticamente"
+                android:layout_toEndOf="@+id/switchBotaoAtualizar"
+                android:layout_toRightOf="@+id/switchBotaoAtualizar"
+                android:layout_alignBaseline="@+id/switchBotaoAtualizar"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_op_2"/>
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/rlOpcoes"
             android:layout_margin="10dp"
             android:textSize="19sp"
             android:textColor="@color/red_1000"
@@ -24,6 +66,8 @@
             android:layout_below="@+id/titulo"
             android:layout_margin="10dp"
             android:text="@string/txt_regras_gerais"/>
+
+
     </RelativeLayout>
 
 
