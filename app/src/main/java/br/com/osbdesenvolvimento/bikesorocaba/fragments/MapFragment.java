@@ -1,15 +1,10 @@
 package br.com.osbdesenvolvimento.bikesorocaba.fragments;
 
-
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +12,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -29,7 +20,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -43,7 +33,6 @@ import br.com.osbdesenvolvimento.bikesorocaba.classes.Interfaces;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
 import br.com.osbdesenvolvimento.bikesorocaba.tasks.DownloadJsonAsyncTask;
 
-
 public class MapFragment extends Fragment implements Interfaces.AsyncReturnListEstacoes, GoogleMap.InfoWindowAdapter {
     //, GoogleMap.OnCameraChangeListener
     MapView mMapView;
@@ -51,11 +40,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
     private GoogleMap googleMap;
     String lat, lon;
     MapFragment contextFragmente;
-    List<Estacao> listaEstacoes;
-
     LayoutInflater thisInflater;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,9 +55,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
         //mMapView.onCreate(savedInstanceState);
         mMapView.onResume(); // needed to get the map to display immediately
 
-
         MapsInitializer.initialize(getActivity().getApplicationContext());
-
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -86,33 +69,24 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
                         == PackageManager.PERMISSION_GRANTED) {
 
                     googleMap.setMyLocationEnabled(true);
-                }else{
-                    Log.e("MAPTESTE","ELSESAPORRA 3");
+                } else {
+                    Log.e("MAPTESTE", "ELSESAPORRA 3");
                 }
-
-
-
-
 
                 //googleMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
-
                 // For dropping a marker at a point on the Map
-                LatLng sorocaba = new LatLng(-23.4826108,-47.4618482);
+                LatLng sorocaba = new LatLng(-23.4826108, -47.4618482);
                 new DownloadJsonAsyncTask(contextFragmente, contextFragmente).execute("https://integrabike.compartibike.com.br/stations.json");
 
                 // For zooming automatically to the location of the marker
-               CameraPosition cameraPosition = new CameraPosition.Builder().target(sorocaba).zoom(12).build();
-               googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-
-
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(sorocaba).zoom(12).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
             }
         });
         return view;
     }
-
 
 //    @Override
 //    public void onCameraChange(CameraPosition cameraPosition) {
@@ -125,8 +99,6 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
 //        Log.e("MAPA", String.valueOf(boundingBox));
 //    }
 
-
-
     @Override
     public void processFinish(final List<Estacao> lista) {
         mMapView.getMapAsync(new OnMapReadyCallback() {
@@ -134,7 +106,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
-                for (final Estacao estacao: lista) {
+                for (final Estacao estacao : lista) {
                     googleMap.addMarker(new MarkerOptions()
                             .position(new LatLng(estacao.getGoogleMapX(), estacao.getGoogleMapY()))
                             .title(estacao.getName())
@@ -146,7 +118,6 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
         });
     }
 
-
     @Override
     public View getInfoContents(Marker marker) {
         JSONObject markerJson = null;
@@ -155,18 +126,15 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
         View v = thisInflater.inflate(R.layout.info_mark_estacao, nullParent);
 
         try {
-            markerJson =  new JSONObject(marker.getSnippet());
-
-            Log.e("teste",markerJson.getString("address"));
+            markerJson = new JSONObject(marker.getSnippet());
 
             TextView tvNome = (TextView) v.findViewById(R.id.tvNome);
             TextView tvBikesDisponiveis = (TextView) v.findViewById(R.id.tvBikesDisponiveis);
             TextView tvBaiasDisponiveis = (TextView) v.findViewById(R.id.tvBaiasDisponiveis);
 
-            tvNome.setText(markerJson.getString("stationNumber")+" - "+marker.getTitle());
+            tvNome.setText(markerJson.getString("stationNumber") + " - " + marker.getTitle());
             tvBikesDisponiveis.setText(contextFragmente.getString(R.string.bikes_disponiveis, markerJson.getString("unavailableSlotsSize")));
             tvBaiasDisponiveis.setText(contextFragmente.getString(R.string.baias_disponiveis, markerJson.getString("availableSlotsSize")));
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

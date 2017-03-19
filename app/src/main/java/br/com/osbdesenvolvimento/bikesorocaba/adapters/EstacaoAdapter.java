@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -67,7 +66,7 @@ public class EstacaoAdapter extends BaseAdapter {
         TextView tvBaiasDisponiveis = (TextView) layout.findViewById(R.id.tvBaiasDisponiveis);
 
         Integer qtdBikes = estacao.getUnavailableSlotsSize() == null ? 0 : estacao.getUnavailableSlotsSize();
-        Integer qtdBaias = estacao.getAvailableSlotsSize() == null || estacao.getUnavailableSlotsSize() == null ? 0 : estacao.getAvailableSlotsSize() + estacao.getUnavailableSlotsSize();
+        Integer qtdBaias = estacao.getAvailableSlotsSize() == null ? 0 : estacao.getAvailableSlotsSize();
 
         tvBikesDisponiveis.setText(context.getString(R.string.bikes_disponiveis, String.valueOf(qtdBikes)));
         tvBaiasDisponiveis.setText(context.getString(R.string.baias_disponiveis, String.valueOf(qtdBaias)));
