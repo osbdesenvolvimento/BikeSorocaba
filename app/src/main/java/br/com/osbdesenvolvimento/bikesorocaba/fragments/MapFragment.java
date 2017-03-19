@@ -29,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -43,7 +44,8 @@ import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
 import br.com.osbdesenvolvimento.bikesorocaba.tasks.DownloadJsonAsyncTask;
 
 
-public class MapFragment extends Fragment implements Interfaces.AsyncReturnListEstacoes {
+public class MapFragment extends Fragment implements Interfaces.AsyncReturnListEstacoes, GoogleMap.InfoWindowAdapter {
+    //, GoogleMap.OnCameraChangeListener
     MapView mMapView;
     RelativeLayout rlLoading;
     private GoogleMap googleMap;
@@ -51,11 +53,15 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
     MapFragment contextFragmente;
     List<Estacao> listaEstacoes;
 
+    LayoutInflater thisInflater;
+
+
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         contextFragmente = this;
+        thisInflater = inflater;
 
         mMapView = (MapView) view.findViewById(R.id.mapView);
         rlLoading = (RelativeLayout) view.findViewById(R.id.rlLoading);
@@ -64,16 +70,17 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
         //mMapView.onCreate(savedInstanceState);
         mMapView.onResume(); // needed to get the map to display immediately
 
-        try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        MapsInitializer.initialize(getActivity().getApplicationContext());
+
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
+
+                // Setting a custom info window adapter for the google map
+                googleMap.setInfoWindowAdapter(contextFragmente);
 
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
@@ -83,53 +90,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
                     Log.e("MAPTESTE","ELSESAPORRA 3");
                 }
 
-                // Setting a custom info window adapter for the google map
-                googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
-                    // Use default InfoWindow frame
-                    @Override
-                    public View getInfoWindow(Marker arg0) {
-                        return null;
-                    }
-
-                    // Defines the contents of the InfoWindow
-                    @Override
-                    public View getInfoContents(Marker marker) {
-                        JSONObject markerJson = null;
-
-                        // Getting view from the layout file info_window_layout
-                        View v = inflater.inflate(R.layout.info_mark_estacao, null);
-
-
-                        Log.e("teste", marker.getSnippet());
-
-                        try {
-                            markerJson =  new JSONObject(marker.getSnippet());
-
-                            Log.e("teste",markerJson.getString("address"));
-
-                            TextView tvNome = (TextView) v.findViewById(R.id.tvNome);
-                            TextView tvBikesDisponiveis = (TextView) v.findViewById(R.id.tvBikesDisponiveis);
-                            TextView tvBaiasDisponiveis = (TextView) v.findViewById(R.id.tvBaiasDisponiveis);
-
-                            tvNome.setText(markerJson.getString("stationNumber")+" - "+marker.getTitle());
-                            tvBikesDisponiveis.setText(contextFragmente.getString(R.string.bikes_disponiveis, markerJson.getString("qtdBikes")));
-                            tvBaiasDisponiveis.setText(contextFragmente.getString(R.string.baias_disponiveis, markerJson.getString("qtdBaias")));
-
-                        } catch (JSONException e) {
-                            Log.e("teste", String.valueOf(e));
-                            e.printStackTrace();
-                        }
-
-
-
-
-
-                        // Returning the view containing InfoWindow contents
-                        return v;
-
-                    }
-                });
 
 
 
@@ -141,12 +102,30 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
                 new DownloadJsonAsyncTask(contextFragmente, contextFragmente).execute("https://integrabike.compartibike.com.br/stations.json");
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sorocaba).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+               CameraPosition cameraPosition = new CameraPosition.Builder().target(sorocaba).zoom(12).build();
+               googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+
+
             }
         });
         return view;
     }
+
+
+//    @Override
+//    public void onCameraChange(CameraPosition cameraPosition) {
+//        // camera's center
+//        LatLng a = cameraPosition.target;
+//        double lat = a.latitude;
+//        double lng = a.longitude;
+//        // you can also access the field-of-view
+//        LatLngBounds boundingBox = googleMap.getProjection().getVisibleRegion().latLngBounds;
+//        Log.e("MAPA", String.valueOf(boundingBox));
+//    }
+
+
 
     @Override
     public void processFinish(final List<Estacao> lista) {
@@ -165,9 +144,40 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
                 rlLoading.setVisibility(View.GONE);
             }
         });
-
     }
 
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        JSONObject markerJson = null;
+        // Getting view from the layout file info_window_layout
+        final ViewGroup nullParent = null;
+        View v = thisInflater.inflate(R.layout.info_mark_estacao, nullParent);
+
+        try {
+            markerJson =  new JSONObject(marker.getSnippet());
+
+            Log.e("teste",markerJson.getString("address"));
+
+            TextView tvNome = (TextView) v.findViewById(R.id.tvNome);
+            TextView tvBikesDisponiveis = (TextView) v.findViewById(R.id.tvBikesDisponiveis);
+            TextView tvBaiasDisponiveis = (TextView) v.findViewById(R.id.tvBaiasDisponiveis);
+
+            tvNome.setText(markerJson.getString("stationNumber")+" - "+marker.getTitle());
+            tvBikesDisponiveis.setText(contextFragmente.getString(R.string.bikes_disponiveis, markerJson.getString("unavailableSlotsSize")));
+            tvBaiasDisponiveis.setText(contextFragmente.getString(R.string.baias_disponiveis, markerJson.getString("availableSlotsSize")));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // Returning the view containing InfoWindow contents
+        return v;
+    }
+
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return null;
+    }
 
     @Override
     public void onResume() {
@@ -192,6 +202,5 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
         super.onLowMemory();
         mMapView.onLowMemory();
     }
-
 
 }
