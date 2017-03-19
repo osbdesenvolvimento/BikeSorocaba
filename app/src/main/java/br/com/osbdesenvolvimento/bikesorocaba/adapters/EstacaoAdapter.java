@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -47,11 +48,11 @@ public class EstacaoAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.estacao, null);
 
-        LinearLayout llEstacao = (LinearLayout) layout.findViewById(R.id.llEstacao);
+        RelativeLayout rlEstacao = (RelativeLayout) layout.findViewById(R.id.rlEstacao);
         if (position % 2 == 1) {
-            llEstacao.setBackgroundColor(Color.parseColor("#ffffff"));
+            rlEstacao.setBackgroundColor(Color.parseColor("#FFFDE7"));
         } else {
-            llEstacao.setBackgroundColor(Color.parseColor("#e5e5e5"));
+            rlEstacao.setBackgroundColor(Color.parseColor("#FFFFFF"));
         }
 
         TextView tvName = (TextView) layout.findViewById(R.id.tvNome);

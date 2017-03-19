@@ -1,50 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/llEstacao"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:paddingLeft="5dp">
+    android:padding="10dp"
+    android:id="@+id/rlEstacao">
 
         <TextView
             android:id="@+id/tvNome"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:text="Id - Nome da Estação"
             android:textStyle="bold" />
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/tvBikesDisponiveis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_below="@+id/tvNome"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="3dp"
+            android:text="@string/bikes_disponiveis" />
 
-            <TextView
-                android:id="@+id/tvBikesDisponiveis"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_margin="3dp"
-                android:gravity="center"
-                android:text="@string/bikes_disponiveis" />
+        <TextView
+            android:id="@+id/tvBaiasDisponiveis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvNome"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/tvBikesDisponiveis"
+            android:layout_margin="3dp"
+            android:gravity="end"
+            android:text="@string/baias_disponiveis" />
 
-            <TextView
-                android:id="@+id/tvBaiasDisponiveis"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_margin="3dp"
-                android:gravity="center"
-                android:text="@string/baias_disponiveis" />
-        </LinearLayout>
 
-    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
