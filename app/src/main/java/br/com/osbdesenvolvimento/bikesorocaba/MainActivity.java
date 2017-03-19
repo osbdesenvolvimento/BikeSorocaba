@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity  implements TabHost.OnTabCha
         // seta o listener
         mTabHost.setOnTabChangedListener(this);
         mViewPager.addOnPageChangeListener(this);
+        mViewPager.setOffscreenPageLimit(2);
 
     }
 
