@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import br.com.osbdesenvolvimento.bikesorocaba.fragments.InformacoesFragment;
 import br.com.osbdesenvolvimento.bikesorocaba.fragments.MapFragment;
-import br.com.osbdesenvolvimento.bikesorocaba.fragments.Temp1Fragment;
+import br.com.osbdesenvolvimento.bikesorocaba.fragments.ListStationsFragment;
 
 public class TabsAdapter extends FragmentPagerAdapter {
 
@@ -23,7 +23,7 @@ public class TabsAdapter extends FragmentPagerAdapter {
                 MapFragment rFragment1 = new MapFragment();
                 return rFragment1;
             case 1:
-                Temp1Fragment rFragment2 = new Temp1Fragment();
+                ListStationsFragment rFragment2 = new ListStationsFragment();
                 return rFragment2;
             case 2:
                 InformacoesFragment rFragment3 = new InformacoesFragment();

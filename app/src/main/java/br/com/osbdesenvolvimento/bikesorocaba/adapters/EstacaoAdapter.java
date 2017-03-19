@@ -65,11 +65,11 @@ public class EstacaoAdapter extends BaseAdapter {
         TextView tvBikesDisponiveis = (TextView) layout.findViewById(R.id.tvBikesDisponiveis);
         TextView tvBaiasDisponiveis = (TextView) layout.findViewById(R.id.tvBaiasDisponiveis);
 
-        String qtdBikes = estacao.getBikes() == null ? "0" : String.valueOf(estacao.getBikes().size());
-        String qtdBaias = estacao.getAvailableSlotsSize() == null ? "0" : estacao.getAvailableSlotsSize();
+        Integer qtdBikes = estacao.getUnavailableSlotsSize() == null ? 0 : estacao.getUnavailableSlotsSize();
+        Integer qtdBaias = estacao.getAvailableSlotsSize() == null || estacao.getUnavailableSlotsSize() == null ? 0 : estacao.getAvailableSlotsSize() + estacao.getUnavailableSlotsSize();
 
-        tvBikesDisponiveis.setText(context.getString(R.string.bikes_disponiveis, qtdBikes));
-        tvBaiasDisponiveis.setText(context.getString(R.string.baias_disponiveis, qtdBaias));
+        tvBikesDisponiveis.setText(context.getString(R.string.bikes_disponiveis, String.valueOf(qtdBikes)));
+        tvBaiasDisponiveis.setText(context.getString(R.string.baias_disponiveis, String.valueOf(qtdBaias)));
 
         return layout;
     }

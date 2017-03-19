@@ -1,20 +1,14 @@
 package br.com.osbdesenvolvimento.bikesorocaba;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TabHost;
-import android.widget.TabWidget;
 import android.widget.TextView;
 
-import br.com.osbdesenvolvimento.bikesorocaba.activities.MatheusActivity;
-import br.com.osbdesenvolvimento.bikesorocaba.activities.PauloActivity;
 import br.com.osbdesenvolvimento.bikesorocaba.adapters.TabsAdapter;
 import br.com.osbdesenvolvimento.bikesorocaba.classes.TabsFactory;
 
@@ -36,10 +30,9 @@ public class MainActivity extends AppCompatActivity  implements TabHost.OnTabCha
         mTabHost.setup();
 
         // cria as tabs
-        this.AddTab( this, this.mTabHost, "Mapa", R.drawable.ic_map_marker_radius );
-        this.AddTab( this, this.mTabHost, "Lista", R.drawable.ic_format_list_bulleted );
-        this.AddTab( this, this.mTabHost, "Informações", R.drawable.ic_information_outline );
-
+        this.AddTab( this, this.mTabHost, getString(R.string.map), R.drawable.ic_map_marker_radius );
+        this.AddTab( this, this.mTabHost, getString(R.string.list), R.drawable.ic_format_list_bulleted );
+        this.AddTab( this, this.mTabHost, getString(R.string.information), R.drawable.ic_information_outline );
 
         if (savedInstanceState != null) {
             int pos = this.mTabHost.getCurrentTab();

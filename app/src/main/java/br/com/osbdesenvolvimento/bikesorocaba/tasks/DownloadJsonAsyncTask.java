@@ -12,12 +12,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
-import br.com.osbdesenvolvimento.bikesorocaba.R;
 import br.com.osbdesenvolvimento.bikesorocaba.adapters.EstacaoAdapter;
 import br.com.osbdesenvolvimento.bikesorocaba.classes.Interfaces;
-import br.com.osbdesenvolvimento.bikesorocaba.dtos.Bicicleta;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
 import br.com.osbdesenvolvimento.bikesorocaba.fragments.MapFragment;
 
@@ -62,54 +59,16 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Est
                 // Estação
                 JSONObject estacaoJson = (JSONObject) estacoesJson.get(i);
                 Estacao estacao = new Estacao();
-                estacao.setAddress(estacaoJson.getString("address"));
-                estacao.setCreatedAt(estacaoJson.getString("created_at"));
-                estacao.setDescription(estacaoJson.getString("description"));
+
+                estacao.setId(estacaoJson.getInt("id"));
+                estacao.setStationNumber(estacaoJson.getInt("station_number"));
+                estacao.setName(estacaoJson.getString("name"));
                 estacao.setGoogleMapX(estacaoJson.getDouble("googleMapX"));
                 estacao.setGoogleMapY(estacaoJson.getDouble("googleMapY"));
-                estacao.setId(estacaoJson.getString("id"));
-                estacao.setMapX(estacaoJson.getString("mapX"));
-                estacao.setMapY(estacaoJson.getString("mapY"));
-                estacao.setName(estacaoJson.getString("name"));
-                estacao.setNumberLeftSlots(estacaoJson.getString("number_left_slots"));
-                estacao.setNumberRightSlots(estacaoJson.getString("number_right_slots"));
-                estacao.setPassword(estacaoJson.getString("password"));
-                estacao.setStationNumber(estacaoJson.getString("station_number"));
                 estacao.setStatus(estacaoJson.getString("status"));
-                estacao.setTotalBikes(estacaoJson.getString("total_bikes"));
-                estacao.setTypeStation(estacaoJson.getString("type_station"));
                 estacao.setUpdatedAt(estacaoJson.getString("updated_at"));
-                estacao.setAvailableSlotsSize(estacaoJson.getString("available_slots_size"));
-                estacao.setUnavailableSlotsSize(estacaoJson.getString("unavailable_slots_size"));
-                estacao.setStatusToHuman(estacaoJson.getString("status_to_human"));
-
-                // Bicicletas
-                JSONArray bicicletasJson = estacaoJson.getJSONArray("bikes");
-                List<Bicicleta> bicicletas = new ArrayList<>();
-                for (int x = 0; x < bicicletasJson.length(); x++) {
-
-                    // Bicicleta
-                    JSONObject bicicletaJson = (JSONObject) bicicletasJson.get(x);
-                    Bicicleta bicicleta = new Bicicleta();
-
-                    bicicleta.setAcquisitionDate(bicicletaJson.getString("acquisition_date"));
-                    bicicleta.setBikeHardId(bicicletaJson.getString("bike_hard_id"));
-                    bicicleta.setCreatedAt(bicicletaJson.getString("created_at"));
-                    bicicleta.setDeletedAt(bicicletaJson.getString("deleted_at"));
-                    bicicleta.setId(bicicletaJson.getString("id"));
-                    bicicleta.setLastReceived(bicicletaJson.getString("last_received"));
-                    bicicleta.setLastStationId(bicicletaJson.getString("last_station_id"));
-                    bicicleta.setModel(bicicletaJson.getString("model"));
-                    bicicleta.setRfid(bicicletaJson.getString("rfid"));
-                    bicicleta.setStationId(bicicletaJson.getString("station_id"));
-                    bicicleta.setStatus(bicicletaJson.getString("status"));
-                    bicicleta.setUpdatedAt(bicicletaJson.getString("updated_at"));
-
-                    bicicletas.add(bicicleta);
-                }
-
-                // Adicionando as bicicletas da estação
-                estacao.setBikes(bicicletas);
+                estacao.setAvailableSlotsSize(estacaoJson.getInt("available_slots_size"));
+                estacao.setUnavailableSlotsSize(estacaoJson.getInt("unavailable_slots_size"));
 
                 // Adicionando as estações localizadas
                 estacoes.add(estacao);
