@@ -69,7 +69,9 @@ public class EstacaoAdapter extends BaseAdapter {
         Integer qtdBaias = estacao.getAvailableSlotsSize() == null ? 0 : estacao.getAvailableSlotsSize();
 
         tvBikesDisponiveis.setText(context.getString(R.string.bikes_disponiveis, String.valueOf(qtdBikes)));
+        tvBikesDisponiveis.setTextColor(Color.parseColor("#424242"));
         tvBaiasDisponiveis.setText(context.getString(R.string.baias_disponiveis, String.valueOf(qtdBaias)));
+        tvBaiasDisponiveis.setTextColor(Color.parseColor("#424242"));
 
         return layout;
     }

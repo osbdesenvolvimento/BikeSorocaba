@@ -5,33 +5,38 @@
     android:background="@android:color/transparent">
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:padding="10dp">
 
         <TextView
             android:id="@+id/tvNome"
-            android:layout_width="match_parent"
-            android:layout_height="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Id - Nome da Estação"
+            android:layout_centerHorizontal="true"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/grey_800"/>
 
         <TextView
             android:id="@+id/tvBikesDisponiveis"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tvNome"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/grey_800"
             android:text="@string/bikes_disponiveis" />
 
         <TextView
             android:id="@+id/tvBaiasDisponiveis"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_800"
             android:layout_margin="3dp"
             android:layout_below="@+id/tvBikesDisponiveis"
             android:text="@string/baias_disponiveis" />

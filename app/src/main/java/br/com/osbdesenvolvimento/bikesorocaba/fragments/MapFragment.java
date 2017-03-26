@@ -41,6 +41,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
     String lat, lon;
     MapFragment contextFragmente;
     LayoutInflater thisInflater;
+    private Bundle mBundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
         mMapView = (MapView) view.findViewById(R.id.mapView);
         rlLoading = (RelativeLayout) view.findViewById(R.id.rlLoading);
 
-        mMapView.onCreate(savedInstanceState);
+        mMapView.onCreate(mBundle);
         //mMapView.onCreate(savedInstanceState);
         mMapView.onResume(); // needed to get the map to display immediately
 
@@ -77,7 +78,7 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
 
                 // For dropping a marker at a point on the Map
                 LatLng sorocaba = new LatLng(-23.4826108, -47.4618482);
-                new DownloadJsonAsyncTask(contextFragmente, contextFragmente).execute("https://integrabike.compartibike.com.br/stations.json");
+                new DownloadJsonAsyncTask(contextFragmente).execute("https://integrabike.compartibike.com.br/stations.json");
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sorocaba).zoom(12).build();
@@ -169,6 +170,12 @@ public class MapFragment extends Fragment implements Interfaces.AsyncReturnListE
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBundle = savedInstanceState;
     }
 
 }

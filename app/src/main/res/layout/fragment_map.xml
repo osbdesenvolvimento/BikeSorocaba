@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="br.com.osbdesenvolvimento.bikesorocaba.fragments.MapFragment">
 
     <com.google.android.gms.maps.MapView
@@ -19,6 +20,23 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
+
+
+   <!--<RelativeLayout-->
+       <!--android:layout_width="50dp"-->
+       <!--android:layout_height="50dp"-->
+       <!--android:background="@drawable/circulo"-->
+       <!--android:layout_gravity="bottom"-->
+       <!--android:layout_marginRight="10dp"-->
+       <!--android:layout_marginBottom="10dp">-->
+
+       <!--<ImageView-->
+           <!--android:layout_width="match_parent"-->
+           <!--android:layout_height="match_parent"-->
+           <!--android:layout_margin="5dp"-->
+           <!--android:src="@drawable/refresh"/>-->
+
+   <!--</RelativeLayout>-->
 
 
 

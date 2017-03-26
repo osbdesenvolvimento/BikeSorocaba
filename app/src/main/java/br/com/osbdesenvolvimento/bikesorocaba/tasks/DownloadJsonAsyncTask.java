@@ -1,9 +1,6 @@
 package br.com.osbdesenvolvimento.bikesorocaba.tasks;
 
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.ListView;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,24 +10,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import br.com.osbdesenvolvimento.bikesorocaba.adapters.EstacaoAdapter;
 import br.com.osbdesenvolvimento.bikesorocaba.classes.Interfaces;
 import br.com.osbdesenvolvimento.bikesorocaba.dtos.Estacao;
-import br.com.osbdesenvolvimento.bikesorocaba.fragments.MapFragment;
 
 public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Estacao>> {
+    private Interfaces.AsyncReturnListEstacoes interCall = null;
 
-    MapFragment mapFragment;
-    View view;
-    Interfaces.AsyncReturnListEstacoes interCall = null;
-
-    public DownloadJsonAsyncTask(MapFragment contextFrag, Interfaces.AsyncReturnListEstacoes interCall) {
-        this.mapFragment = contextFrag;
+    public DownloadJsonAsyncTask(Interfaces.AsyncReturnListEstacoes interCall) {
         this.interCall = interCall;
-    }
-
-    public DownloadJsonAsyncTask(View view) {
-        this.view = view;
     }
 
     @Override
@@ -82,13 +69,13 @@ public class DownloadJsonAsyncTask extends AsyncTask<String, Void, ArrayList<Est
 
     @Override
     protected void onPostExecute(ArrayList<Estacao> estacoes) {
-        if (interCall != null) {
+        //if (interCall != null) {
             interCall.processFinish(estacoes);
-        } else if (view != null) {
-            ListView lvEstacoes = (ListView) view;
-            EstacaoAdapter adapter = new EstacaoAdapter(view.getContext(), estacoes);
-            lvEstacoes.setAdapter(adapter);
-        }
+        //} else if (view != null) {
+          //  ListView lvEstacoes = (ListView) view;
+           // EstacaoAdapter adapter = new EstacaoAdapter(view.getContext(), estacoes);
+            //lvEstacoes.setAdapter(adapter);
+        //}
     }
 }
 
